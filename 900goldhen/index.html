@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head>
+<title>PS4 9.00 FW GoldHEN Host by GamerHack</title>
+<link rel="stylesheet" href="../style.css">
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+<link rel="stylesheet" href="../gd-theme.css"></head><body class="host"><div class="gd-shell"><header class="gd-top"><div class="gd-brand"><img src="../gd-respawn-logo.png" alt="GD-RESPAWN"><div><strong>GD-RESPAWN</strong><small>BACK TO GAME IN MINUTES</small></div></div><div class="gd-pill">● HOST READY</div></header><main class="gd-main"><section class="gd-card host-card"><div class="host-title"><div class="k">PS4 9.00 • GoldHEN Host</div><h1>GD-<span>RESPAWN</span> HOST</h1></div><div class="host-status"><div id="msgs">Loading GoldHEN...</div></div><div class="host-contact"><a class="mini-phone" href="tel:01036894272">☎ 01036894272</a><a class="mini-phone" href="tel:01036854645">☎ 01036854645</a></div><div class="host-foot">Keep this page open while the host initializes • Offline cache supported</div></section></main></div><script>
+if (window.applicationCache.status=='0'){window.location.replace("cache.html");}
+</script>
+<script>
+function allset(){
+msgs.innerHTML = LoadedMSG
+}
+
+function load_poc(){
+ var req = new XMLHttpRequest();
+ req.responseType = "arraybuffer";
+ req.open('GET', PLfile);
+ req.send();
+ req.onreadystatechange = function () {
+  if (req.readyState == 4) {
+   PLD = req.response;
+   var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+   var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+   var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+   var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+   tmp.set(new Uint8Array(req.response), 0);
+   tmp.set(padding, req.response.byteLength);
+   var shellcode = new Uint32Array(tmp.buffer);
+   pl.set(shellcode,0);
+   var pthread = p.malloc(0x10);
+   chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+   allset();
+  }
+ };
+}
+
+function jbdone(){
+LoadedMSG = "GoldHEN v2.4b18.10 Loaded ...";
+PLfile = "goldhen_2.4b18.10.bin";
+setTimeout(load_poc, 500);
+}
+</script></body></html>
