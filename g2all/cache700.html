@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" manifest="700.manifest">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GD-RESPAWN • GoldHEN Host</title>
+<style>
+:root{--bg:#05030a;--purple:#c62cff;--blue:#1fc7ff;--text:#f5f3fb;--muted:#9289a1;}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+body{display:flex;align-items:center;justify-content:center;position:relative;background:
+radial-gradient(700px 420px at 50% 35%,rgba(136,0,255,.18),transparent 64%),
+radial-gradient(500px 300px at 12% 10%,rgba(25,145,255,.10),transparent 70%),
+linear-gradient(160deg,#05030a 0%,#090713 52%,#040308 100%)}
+body:before{content:"";position:absolute;inset:0;background:linear-gradient(125deg,transparent 0%,rgba(255,255,255,.025) 48%,transparent 52%);pointer-events:none}
+.panel{position:relative;width:min(860px,calc(100vw - 36px));padding:24px 28px 22px;text-align:center;border:1px solid rgba(198,44,255,.30);border-radius:22px;background:linear-gradient(145deg,rgba(14,9,24,.97),rgba(7,8,14,.985));box-shadow:0 28px 80px rgba(0,0,0,.60),0 0 45px rgba(165,0,255,.12),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden}
+.panel:before{content:"";position:absolute;left:7%;right:7%;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple),var(--blue),transparent)}
+.logo{width:100px;height:100px;object-fit:contain;margin:0 auto 4px;display:block;filter:drop-shadow(0 0 24px rgba(191,24,255,.45))}
+.kicker{font-size:9px;letter-spacing:3.5px;color:#aaa0b4;text-transform:uppercase;font-weight:800}
+h1{margin:6px 0 4px;font-size:31px;line-height:1;font-weight:900;letter-spacing:.5px}
+h1 span{background:linear-gradient(90deg,var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:10px;letter-spacing:2.7px;color:var(--muted);text-transform:uppercase}
+.status{margin:18px auto 12px;width:min(650px,100%);padding:18px 14px;border-radius:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);box-shadow:inset 0 0 24px rgba(130,0,255,.035)}
+#msgs{font-size:17px;font-weight:900;letter-spacing:.2px}
+.status:after{content:"";display:block;width:58%;height:4px;margin:14px auto 0;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--blue),var(--purple));background-size:200% 100%;animation:scan 1.7s linear infinite;box-shadow:0 0 16px rgba(188,31,255,.25)}
+.contacts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.contacts a{min-width:235px;padding:11px 16px;border-radius:12px;text-decoration:none;color:#f3f8ff;font-size:17px;font-weight:900;letter-spacing:1px;border:1px solid rgba(31,198,255,.25);background:linear-gradient(90deg,rgba(129,0,255,.11),rgba(20,143,196,.08));box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.contacts a:first-child{border-color:rgba(198,44,255,.34)}
+.note{margin-top:12px;font-size:9px;letter-spacing:1.3px;color:#675d71;text-transform:uppercase}
+@keyframes scan{0%{background-position:0 0;opacity:.55}50%{opacity:1}100%{background-position:200% 0;opacity:.55}}
+@media(max-width:700px){.panel{width:calc(100vw - 20px);padding:20px 14px 18px}.logo{width:82px;height:82px}h1{font-size:26px}.contacts a{min-width:0;flex:1;font-size:14px;padding:10px 8px}.status{padding:15px 10px}#msgs{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="panel">
+  <img class="logo" src="../gd-respawn-logo.png" alt="GD-RESPAWN">
+  <div class="kicker">GD-RESPAWN • GOLDHEN HOST</div>
+  <h1>GOLDHEN <span>LOADING</span></h1>
+  <div class="sub">OFFLINE CACHE INSTALLATION</div>
+  <div class="status"><div id="msgs">Starting Cache Installation...</div></div>
+  <div class="contacts"><a href="tel:01036894272">☎ 01036894272</a><a href="tel:01036854645">☎ 01036854645</a></div>
+  <div class="note">Please wait • Keep this page open while the cache is installing</div>
+</div>
+<script>
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";}
+function DisplayCacheProgress(){window.msgs.innerHTML="Cache Installed Successfully ✔";setTimeout(function(){window.msgs.innerHTML="Now Close And Re-Open Your Browser ...";},1500);}
+window.applicationCache.addEventListener("progress",DLProgress,false);
+window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+window.applicationCache.onerror=function(e){window.msgs.innerHTML="Error Installing Cache! - Clear and Re-Open Your Browser ...";};
+</script>
+</body>
+</html>
