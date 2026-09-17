@@ -2,6 +2,8 @@ CACHE MANIFEST
 # GD-RESPAWN V8.3 
 
 CACHE: 
+../gd-theme.css
+../gd-respawn-logo.png
 ../img.jpg
 ../style.css
 goldhen_2.4b18.10.bin
